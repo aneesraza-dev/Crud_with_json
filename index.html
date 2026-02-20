@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-end my-2">
+
+            <h2>Student List</h2>
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+                Create
+            </button>
+        </div>
+
+        <table class="table table-hover table-secondary">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Institute</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+
+
+
+
+
+        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="#" id="createform">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Name</label>
+                                        <input id="name" type="text" class="form-control" placeholder="Enter Name"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Age</label>
+                                        <input id="age" type="number" class="form-control" placeholder="Enter Age"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Institute</label>
+                                        <input id="ins" type="text" class="form-control" placeholder="Enter Institute"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="#" id="updateform">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" id="e_name" class="form-control" placeholder="Enter Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Age</label>
+                                        <input type="number" id="e_age" class="form-control" placeholder="Enter Age">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Institute</label>
+                                        <input type="text" id="e_ins" class="form-control"
+                                            placeholder="Enter Institute">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary w-100">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        let tb_body = document.getElementById("table-body");
+        let userid = null;
+        let form = document.getElementById("createform");
+        let form_update = document.getElementById("updateform");
+        let createmodal = new bootstrap.Modal(document.getElementById("createModal"));
+        let editmodal = new bootstrap.Modal(document.getElementById("editModal"));
+        let user = [
+            {
+                id: 1,
+                name: "student1",
+                age: 20,
+                institute: "Aptech Korangi"
+            },
+            {
+                id: 2,
+                name: "student2",
+                age: 22,
+                institute: "Aptech Korangi"
+            }
+
+        ];
+
+        function edituser(id) {
+            userid = id;
+            console.log(userid)
+            let edituserz = user.find(i => i.id == userid);
+
+            let e_name = document.getElementById("e_name");
+            let e_age = document.getElementById("e_age");
+            let e_ins = document.getElementById("e_ins");
+            e_name.value = edituserz.name;
+            e_age.value = edituserz.age;
+            e_ins.value = edituserz.institute;
+
+
+        }
+        function deleteuser(u_id) {
+            u_id = Number(u_id);
+            let conf = confirm("are you sure are you want to delete these record");
+            if (conf) {
+
+                user = user.filter(i => i.id !== u_id);
+                tb_body.innerHTML = "";
+                showuserList();
+
+            }
+            else {
+                alert("Something Went Wrong!");
+            }
+
+        }
+
+
+
+        function showuserList() {
+
+            tb_body.innerHTML = "";
+            user.forEach(element => {
+                let result = `
+                    <tr>
+                    <th>${element.name}</th>
+                    <th>${element.age}</th>
+                    <th>${element.institute}</th>
+                    <th>
+                        <a href="#" class="btn btn-primary edit-btn" data-id="${element.id}"  data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                        <a href="#" class="btn btn-dark delete-btn" data-id="${element.id}">Delete</a>
+                    </th>
+                </tr>
+                `;
+                tb_body.innerHTML += result;
+                document.querySelectorAll(".edit-btn").forEach(editbtn => {
+                    editbtn.addEventListener("click", () => edituser(editbtn.dataset.id));
+                });
+                document.querySelectorAll(".delete-btn").forEach(delbtn => {
+                    delbtn.addEventListener("click", () => deleteuser(delbtn.dataset.id));
+                });
+
+            });
+             if (user.length == 0) {
+                tb_body.innerHTML = `
+            <tr>
+                <td>
+                data not found 
+                </td>
+                 <td>
+                data not found 
+                </td>
+                 <td>
+                data not found 
+                </td>
+                 <td>
+                data not found 
+                </td>
+            </tr>
+            `;
+            }
+
+        }
+
+        showuserList();
+
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            let name = document.getElementById("name");
+            let age = document.getElementById("age");
+            let ins = document.getElementById("ins");
+
+            tb_body.innerHTML = "";
+            let user_id = user.length + 1;
+            user.push(
+                {
+                    id: user_id,
+                    name: name.value,
+                    age: Number(age.value),
+                    institute: ins.value
+                }
+            );
+
+
+            showuserList();
+            console.clear();
+            console.log(user);
+            form.reset();
+            createmodal.hide();
+
+
+        });
+
+
+        form_update.addEventListener("submit", function (e) {
+            e.preventDefault();
+            let u_name = document.getElementById("e_name");
+            let u_age = document.getElementById("e_age");
+            let u_ins = document.getElementById("e_ins");
+
+            let sortuser = user.find(i => i.id == userid);
+            if (sortuser) {
+
+                tb_body.innerHTML = "";
+
+                sortuser.name = u_name.value;
+                sortuser.age = u_age.value;
+                sortuser.institute = u_ins.value;
+
+                showuserList();
+                console.clear();
+                console.log(user);
+                form_update.reset();
+                editmodal.hide();
+            }
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
